@@ -1,0 +1,289 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: #FFFFFF;
+    color: #1C1C1E;
+    line-height: 1.4;
+}
+
+#app {
+    max-width: 400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid #C7C7CC;
+    background-color: #FFFFFF;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.header-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1C1C1E;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.header-button {
+    background: none;
+    border: none;
+    color: #007AFF;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+}
+
+.header-button:hover {
+    background-color: rgba(0, 122, 255, 0.1);
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+}
+
+.status-section {
+    background-color: rgba(118, 118, 128, 0.3);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.status-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 8px;
+}
+
+.status-text {
+    font-size: 14px;
+    color: #8E8E93;
+}
+
+.connection-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0;
+    justify-content: center;
+}
+
+.status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #FF3B30;
+}
+
+.status-indicator.connected {
+    background-color: #34C759;
+}
+
+.meeting-info {
+    background-color: #F2F2F7;
+    padding: 16px;
+    border-radius: 8px;
+    margin: 16px 0;
+}
+
+.meeting-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 4px;
+}
+
+.meeting-subtitle {
+    font-size: 14px;
+    color: #8E8E93;
+}
+
+.nav-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 20px 0;
+}
+
+.nav-button {
+    background-color: #F2F2F7;
+    color: #1C1C1E;
+    border: 1px solid #C7C7CC;
+    padding: 20px 16px;
+    border-radius: 12px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-button:hover {
+    background-color: #E5E5EA;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-icon {
+    font-size: 24px;
+}
+
+.nav-text {
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.button {
+    background-color: #007AFF;
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    margin: 8px 0;
+    transition: background-color 0.2s;
+}
+
+.button:hover {
+    background-color: #0056CC;
+}
+
+.button:disabled {
+    background-color: #8E8E93;
+    cursor: not-allowed;
+}
+
+.secondary-button {
+    background-color: #F2F2F7;
+    color: #1C1C1E;
+    border: 1px solid #C7C7CC;
+}
+
+.secondary-button:hover {
+    background-color: #E5E5EA;
+}
+
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px 0;
+}
+
+.control-button {
+    background-color: #F2F2F7;
+    color: #1C1C1E;
+    border: 1px solid #C7C7CC;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.control-button:hover {
+    background-color: #E5E5EA;
+}
+
+.control-button.active {
+    background-color: #007AFF;
+    color: white;
+}
+
+.settings-section {
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #C7C7CC;
+}
+
+.settings-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 16px;
+}
+
+.input-group {
+    margin-bottom: 16px;
+}
+
+.input-label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #1C1C1E;
+    margin-bottom: 8px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #C7C7CC;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: #FFFFFF;
+    color: #1C1C1E;
+}
+
+.input:focus {
+    outline: none;
+    border-color: #007AFF;
+}
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+.hidden {
+    display: none;
+}
+
+@media (max-width: 480px) {
+    #app {
+        max-width: 100%;
+    }
+    
+    .header {
+        padding: 16px;
+    }
+    
+    .content {
+        padding: 16px;
+    }
+    
+    .nav-grid {
+        grid-template-columns: 1fr;
+    }
+}

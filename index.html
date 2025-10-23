@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneTap Remote</title>
+    <meta name="description" content="OneTap Remote Control PWA">
+    <meta name="theme-color" content="#007AFF">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-buttons">
+                <button class="header-button" onclick="goHome()">🏠 Home</button>
+            </div>
+            <div class="header-title">OneTap Remote</div>
+            <div class="header-buttons">
+                <button class="header-button" onclick="goBack()">← Back</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Status Section -->
+            <div class="status-section">
+                <div class="status-title">Connection Status</div>
+                <div class="connection-status">
+                    <div class="status-indicator" id="bridgeStatus"></div>
+                    <span class="status-text" id="bridgeStatusText">Bridge: Disconnected</span>
+                </div>
+                <div class="connection-status">
+                    <div class="status-indicator" id="launcherStatus"></div>
+                    <span class="status-text" id="launcherStatusText">Launcher: Disconnected</span>
+                </div>
+            </div>
+
+            <!-- Meeting Info -->
+            <div class="meeting-info">
+                <div class="meeting-title">Meeting Room</div>
+                <div class="meeting-subtitle">Conference Room A</div>
+            </div>
+
+            <!-- Main Navigation -->
+            <div class="nav-grid">
+                <button class="nav-button" onclick="navigateTo('join-meeting')">
+                    <div class="nav-icon">📞</div>
+                    <div class="nav-text">Join Meeting</div>
+                </button>
+                <button class="nav-button" onclick="navigateTo('calendar')">
+                    <div class="nav-icon">📅</div>
+                    <div class="nav-text">Calendar</div>
+                </button>
+                <button class="nav-button" onclick="navigateTo('casting')">
+                    <div class="nav-icon">📺</div>
+                    <div class="nav-text">Casting</div>
+                </button>
+                <button class="nav-button" onclick="navigateTo('meeting-controls')">
+                    <div class="nav-icon">🎮</div>
+                    <div class="nav-text">Controls</div>
+                </button>
+                <button class="nav-button" onclick="navigateTo('instant-meeting')">
+                    <div class="nav-icon">⚡</div>
+                    <div class="nav-text">Instant Meet</div>
+                </button>
+                <button class="nav-button" onclick="navigateTo('settings')">
+                    <div class="nav-icon">⚙️</div>
+                    <div class="nav-text">Settings</div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+    
+    <!-- PWA Service Worker -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then((registration) => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch((registrationError) => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>
