@@ -5,6 +5,31 @@ let launcherIP = '192.168.68.102';
 let launcherPort = '8001';
 let roomName = 'Meeting Room 1';
 
+// Navigation functions
+function navigate(path) {
+    if (path.startsWith('/')) {
+        path = path.substring(1);
+    }
+    
+    if (path === '' || path === 'index.html' || path === '/') {
+        window.location.href = 'index.html';
+    } else {
+        window.location.href = path + '.html';
+    }
+}
+
+function goHome() {
+    navigate('index.html');
+}
+
+function goBack() {
+    window.history.back();
+}
+
+function goToSettings() {
+    navigate('settings.html');
+}
+
 // Initialize
 document.addEventListener('DOMContentLoaded', function() {
     loadSettings();
@@ -572,3 +597,196 @@ function closeAlert() {
     if (alert) alert.remove();
     if (overlay) overlay.remove();
 }
+
+// Page-specific functions
+
+// Join Meeting Page
+function joinMeeting() {
+    const meetingUrl = document.getElementById('meetingUrl').value;
+    if (!meetingUrl) {
+        alert('Please enter a meeting URL');
+        return;
+    }
+    
+    console.log('Joining meeting:', meetingUrl);
+    // Here you would call the actual API to join the meeting
+    alert('Meeting join functionality would be implemented here');
+}
+
+// Calendar Page
+function loadMeetings() {
+    const meetingsList = document.getElementById('meetingsList');
+    if (!meetingsList) return;
+    
+    // Mock data - in real app, this would come from API
+    const meetings = [
+        { title: 'Teams Test Event', time: '4:00 PM - 4:30 PM', platform: 'TEAMS', status: 'UPCOMING' },
+        { title: 'Zoom Test Event', time: '4:30 PM - 5:00 PM', platform: 'ZOOM', status: 'UPCOMING' },
+        { title: 'WebEx Test Event', time: '5:00 PM - 5:30 PM', platform: 'WEBEX', status: 'UPCOMING' },
+        { title: 'Test Google Meet', time: '5:30 PM - 6:00 PM', platform: 'GOOGLE', status: 'UPCOMING' }
+    ];
+    
+    meetingsList.innerHTML = meetings.map(meeting => `
+        <div class="meetingCard">
+            <div class="meetingTitle">${meeting.title}</div>
+            <div class="meetingTime">${meeting.time}</div>
+            <div class="meetingFooter">
+                <span class="meetingPlatform">${meeting.platform}</span>
+                <span class="meetingStatus">${meeting.status}</span>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Casting Page
+function startCasting() {
+    console.log('Starting casting...');
+    // Here you would call the actual API to start casting
+    alert('Casting functionality would be implemented here');
+}
+
+// Meeting Controls Page
+function toggleMute() {
+    console.log('Toggling mute...');
+    // API call to toggle mute
+}
+
+function volumeUp() {
+    console.log('Volume up...');
+    // API call to increase volume
+}
+
+function volumeDown() {
+    console.log('Volume down...');
+    // API call to decrease volume
+}
+
+function toggleCamera() {
+    console.log('Toggling camera...');
+    // API call to toggle camera
+}
+
+function endCall() {
+    console.log('Ending call...');
+    // API call to end call
+}
+
+function toggleFocus() {
+    console.log('Toggling focus...');
+    // API call to toggle focus
+}
+
+function togglePlatform() {
+    console.log('Toggling platform...');
+    // Show platform selection
+}
+
+// Camera controls
+function cameraZoomOut() {
+    console.log('Camera zoom out...');
+    // API call for camera zoom out
+}
+
+function cameraZoomIn() {
+    console.log('Camera zoom in...');
+    // API call for camera zoom in
+}
+
+function cameraTiltUp() {
+    console.log('Camera tilt up...');
+    // API call for camera tilt up
+}
+
+function cameraTiltDown() {
+    console.log('Camera tilt down...');
+    // API call for camera tilt down
+}
+
+function cameraPanLeft() {
+    console.log('Camera pan left...');
+    // API call for camera pan left
+}
+
+function cameraPanRight() {
+    console.log('Camera pan right...');
+    // API call for camera pan right
+}
+
+function cameraHome() {
+    console.log('Camera home...');
+    // API call for camera home
+}
+
+// Settings Page
+function switchTab(tabName) {
+    // Hide all content
+    document.querySelectorAll('.settingsContent').forEach(content => {
+        content.classList.remove('active');
+    });
+    
+    // Remove active from all tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.classList.remove('active');
+    });
+    
+    // Show selected content
+    document.getElementById(tabName + 'Settings').classList.add('active');
+    
+    // Activate selected tab
+    document.querySelector('.' + tabName + 'Tab').classList.add('active');
+}
+
+function saveBridgeSettings() {
+    const roomName = document.getElementById('roomName').value;
+    const bridgeIP = document.getElementById('bridgeIP').value;
+    const bridgePort = document.getElementById('bridgePort').value;
+    
+    localStorage.setItem('roomName', roomName);
+    localStorage.setItem('bridgeIP', bridgeIP);
+    localStorage.setItem('bridgePort', bridgePort);
+    
+    alert('Bridge settings saved!');
+}
+
+function saveLauncherSettings() {
+    const launcherIP = document.getElementById('launcherIP').value;
+    const launcherPort = document.getElementById('launcherPort').value;
+    
+    localStorage.setItem('launcherIP', launcherIP);
+    localStorage.setItem('launcherPort', launcherPort);
+    
+    alert('Launcher settings saved!');
+}
+
+function testLauncherConnection() {
+    console.log('Testing launcher connection...');
+    // API call to test connection
+    alert('Connection test would be implemented here');
+}
+
+function scanQR() {
+    console.log('Opening QR scanner...');
+    // Navigate to QR scanner page
+    navigate('qr-scanner.html');
+}
+
+// Instant Meeting Page
+function startGoogleMeet() {
+    console.log('Starting Google Meet...');
+    // API call to start Google Meet
+    alert('Google Meet functionality would be implemented here');
+}
+
+function startTeamsMeeting() {
+    console.log('Starting Teams meeting...');
+    // API call to start Teams meeting
+    alert('Teams meeting functionality would be implemented here');
+}
+
+// Load page-specific content
+document.addEventListener('DOMContentLoaded', function() {
+    // Load meetings for calendar page
+    if (document.getElementById('meetingsList')) {
+        loadMeetings();
+    }
+});

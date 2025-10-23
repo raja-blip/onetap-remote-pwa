@@ -37,9 +37,17 @@ body {
 }
 
 .logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-size: 24px;
     font-weight: 700;
-    color: #007AFF;
+    color: #1C1C1E;
+}
+
+.logo svg {
+    width: 24px;
+    height: 24px;
 }
 
 .headerInfo {
@@ -227,6 +235,716 @@ body {
 .footerText {
     font-size: 14px;
     color: #8E8E93;
+}
+
+/* Header Buttons */
+.headerButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.headerButton {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 12px;
+    background-color: #F2F2F7;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #007AFF;
+    transition: all 0.2s;
+}
+
+.headerButton:hover {
+    background-color: #E5E5EA;
+}
+
+.headerButton svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* Back Button */
+.backButton {
+    background: none;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.backButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.backButton svg {
+    color: #007AFF;
+}
+
+/* Page Title */
+.pageTitle {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1C1C1E;
+    margin: 0;
+}
+
+.pageSubtitle {
+    font-size: 16px;
+    color: #8E8E93;
+    margin: 8px 0 0 0;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Join Meeting Page */
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.meetingInput {
+    width: 100%;
+    padding: 16px;
+    border: 1px solid #C7C7CC;
+    border-radius: 12px;
+    font-size: 16px;
+    background-color: #F2F2F7;
+    color: #1C1C1E;
+}
+
+.meetingInput::placeholder {
+    color: #8E8E93;
+}
+
+.joinButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background-color: #34C759;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.joinButton:hover {
+    background-color: #30B54F;
+}
+
+/* Calendar Page */
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #007AFF;
+    margin: 0 0 16px 0;
+}
+
+.meetingsList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.meetingCard {
+    background-color: #F2F2F7;
+    border-radius: 12px;
+    padding: 16px;
+    border: 1px solid #E5E5EA;
+}
+
+.meetingTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin: 0 0 4px 0;
+}
+
+.meetingTime {
+    font-size: 14px;
+    color: #8E8E93;
+    margin: 0 0 8px 0;
+}
+
+.meetingFooter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.meetingPlatform {
+    font-size: 12px;
+    font-weight: 600;
+    color: #007AFF;
+}
+
+.meetingStatus {
+    font-size: 12px;
+    font-weight: 600;
+    color: #34C759;
+}
+
+/* Casting Page */
+.timer {
+    font-size: 14px;
+    color: #FF3B30;
+    font-weight: 600;
+    margin-top: 4px;
+}
+
+.statusBox {
+    background-color: #F2F2F7;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.statusIndicator {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.statusDot {
+    width: 8px;
+    height: 8px;
+    background-color: #FF3B30;
+    border-radius: 50%;
+}
+
+.statusText {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+}
+
+.instructions {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.instructionTitle {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1C1C1E;
+    margin: 0;
+}
+
+.instructionSteps {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+.stepNumber {
+    width: 24px;
+    height: 24px;
+    background-color: #AF52DE;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+.step span {
+    font-size: 14px;
+    color: #1C1C1E;
+    line-height: 1.4;
+}
+
+.startCastingButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 24px;
+    background-color: #AF52DE;
+    border: none;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.startCastingButton:hover {
+    background-color: #9D4EDD;
+}
+
+/* Meeting Controls Page */
+.meetingPlatformSection {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.platformLabel {
+    font-size: 14px;
+    color: #8E8E93;
+    font-weight: 500;
+}
+
+.platformButton {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background-color: #F2F2F7;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.platformIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.platformText {
+    flex: 1;
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    text-align: left;
+}
+
+.meetingStatus {
+    display: flex;
+    justify-content: space-between;
+    background-color: #F2F2F7;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 16px;
+}
+
+.statusItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+.statusLabel {
+    font-size: 12px;
+    color: #8E8E93;
+    font-weight: 500;
+}
+
+.statusValue {
+    font-size: 14px;
+    color: #1C1C1E;
+    font-weight: 600;
+}
+
+.controlButtons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.controlButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background-color: #F2F2F7;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.controlButton:hover {
+    background-color: #E5E5EA;
+}
+
+.controlButton span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1C1C1E;
+}
+
+.endCallButton {
+    background-color: #FF3B30;
+}
+
+.endCallButton span {
+    color: #FF3B30;
+}
+
+.endCallButton svg {
+    color: white;
+}
+
+.cameraControls {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid #E5E5EA;
+}
+
+.cameraControlsTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #8E8E93;
+    margin: 0 0 16px 0;
+}
+
+.cameraButtons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
+.cameraButton {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 16px;
+    background-color: #F2F2F7;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cameraButton:hover {
+    background-color: #E5E5EA;
+}
+
+.cameraButton span {
+    font-size: 12px;
+    font-weight: 600;
+    color: #1C1C1E;
+}
+
+.cameraButton.homeButton {
+    background-color: #007AFF;
+}
+
+.cameraButton.homeButton span {
+    color: white;
+}
+
+/* Settings Page */
+.tabs {
+    display: flex;
+    background-color: #F2F2F7;
+    border-radius: 12px;
+    padding: 4px;
+    margin: 0 20px 20px 20px;
+}
+
+.tab {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px;
+    background: none;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    color: #8E8E93;
+    transition: all 0.2s;
+}
+
+.tab.active {
+    background-color: #007AFF;
+    color: white;
+}
+
+.settingsContent {
+    display: none;
+    padding: 0 20px;
+}
+
+.settingsContent.active {
+    display: block;
+}
+
+.settingsCard {
+    background-color: #F2F2F7;
+    border-radius: 16px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.settingsCard .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #007AFF;
+    justify-content: center;
+}
+
+.instructionText {
+    font-size: 14px;
+    color: #8E8E93;
+    text-align: center;
+    margin: 0;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1C1C1E;
+}
+
+.inputField {
+    padding: 12px 16px;
+    border: 1px solid #C7C7CC;
+    border-radius: 8px;
+    font-size: 16px;
+    background-color: white;
+    color: #1C1C1E;
+}
+
+.inputWithButton {
+    display: flex;
+    gap: 8px;
+}
+
+.inputWithButton .inputField {
+    flex: 1;
+}
+
+.qrButton {
+    padding: 12px;
+    background-color: white;
+    border: 1px solid #C7C7CC;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.qrButton svg {
+    color: #007AFF;
+}
+
+.inputHint {
+    font-size: 12px;
+    color: #8E8E93;
+    margin: 0;
+}
+
+.saveButton, .testButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.saveButton {
+    background-color: #007AFF;
+    color: white;
+}
+
+.testButton {
+    background-color: #34C759;
+    color: white;
+}
+
+.buttonGroup {
+    display: flex;
+    gap: 12px;
+}
+
+.connectionStatus {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.statusTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin: 0;
+}
+
+.statusInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statusText {
+    font-size: 14px;
+    color: #8E8E93;
+}
+
+.statusIndicator {
+    padding: 6px 12px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.statusIndicator.connected {
+    background-color: #34C759;
+    color: white;
+}
+
+/* Instant Meeting Page */
+.titleSection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    text-align: center;
+}
+
+.lightningIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.warningBox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background-color: rgba(255, 149, 0, 0.1);
+    border: 1px solid rgba(255, 149, 0, 0.3);
+    border-radius: 12px;
+}
+
+.warningBox span {
+    font-size: 14px;
+    color: #FF9500;
+    line-height: 1.4;
+}
+
+.platformButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.platformButton {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+    background-color: #F2F2F7;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.platformButton:hover {
+    background-color: #E5E5EA;
+}
+
+.platformIcon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: #E5E5EA;
+    border-radius: 50%;
+}
+
+.platformInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.platformName {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+}
+
+.platformStatus {
+    font-size: 14px;
+    color: #34C759;
+    font-weight: 500;
+}
+
+.platformArrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.infoBox {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background-color: rgba(0, 122, 255, 0.1);
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    border-radius: 12px;
+}
+
+.infoBox span {
+    font-size: 14px;
+    color: #007AFF;
+    line-height: 1.4;
 }
 
 /* Responsive Design */

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Casting - OneTap Remote</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#FFFFFF">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <div class="header">
+            <div class="logo">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 2L13.09 8.26L22 9L13.09 9.74L12 16L10.91 9.74L2 9L10.91 8.26L12 2Z" fill="#007AFF"/>
+                </svg>
+                <span>OneTap</span>
+            </div>
+            <div class="headerInfo">
+                <div class="companyName" id="roomName">TIFOH-BLR-Jupiter</div>
+                <div class="timer" id="timer">4:58</div>
+            </div>
+            <div class="headerButtons">
+                <button class="headerButton" onclick="goHome()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M3 9L12 2L21 9V20C21 20.5304 20.7893 21.0391 20.4142 21.4142C20.0391 21.7893 19.5304 22 19 22H5C4.46957 22 3.96086 21.7893 3.58579 21.4142C3.21071 21.0391 3 20.5304 3 20V9Z" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M9 22V12H15V22" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Home</span>
+                </button>
+                <button class="headerButton" onclick="goBack()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+                        <path d="M19 12H5M12 19L5 12L12 5" stroke="#007AFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Return</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Status Box -->
+            <div class="statusBox">
+                <div class="statusIndicator">
+                    <div class="statusDot"></div>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                        <path d="M12 2V6M12 18V22M4.93 4.93L7.76 7.76M16.24 16.24L19.07 19.07M2 12H6M18 12H22M4.93 19.07L7.76 16.24M16.24 7.76L19.07 4.93" stroke="#1C1C1E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </div>
+                <span class="statusText" id="statusText">Waiting for Connection</span>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <h3 class="instructionTitle">To present your screen:</h3>
+                <div class="instructionSteps">
+                    <div class="step">
+                        <div class="stepNumber">1</div>
+                        <span>Tap "Start Casting" button below</span>
+                    </div>
+                    <div class="step">
+                        <div class="stepNumber">2</div>
+                        <span>Visit <strong>cast.tifoh.com</strong> in your laptop and connect</span>
+                    </div>
+                    <div class="step">
+                        <div class="stepNumber">3</div>
+                        <span>Once connected, tap "View Screen" button</span>
+                    </div>
+                    <div class="step">
+                        <div class="stepNumber">4</div>
+                        <span>Tap "Full Screen" for optimal viewing only after Laptop screen is presented on the display</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Start Casting Button -->
+            <button class="startCastingButton" onclick="startCasting()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                    <path d="M8 5V19L19 12L8 5Z" fill="white"/>
+                </svg>
+                <span>Start Casting</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
