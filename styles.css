@@ -599,12 +599,20 @@ body {
     color: #1C1C1E;
 }
 
+.muteButton, .volUpButton, .volDownButton, .cameraButton, .focusButton {
+    background-color: #F2F2F7;
+}
+
+.muteButton span, .volUpButton span, .volDownButton span, .cameraButton span, .focusButton span {
+    color: #1C1C1E;
+}
+
 .endCallButton {
     background-color: #FF3B30;
 }
 
 .endCallButton span {
-    color: #FF3B30;
+    color: white;
 }
 
 .endCallButton svg {
@@ -844,107 +852,138 @@ body {
 }
 
 /* Instant Meeting Page */
-.titleSection {
+.stepCard {
+    background-color: white;
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 16px;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     gap: 16px;
-    text-align: center;
+    align-items: flex-start;
 }
 
-.lightningIcon {
+.stepNumber {
+    width: 24px;
+    height: 24px;
+    background-color: #007AFF;
+    color: white;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
 }
 
-.warningBox {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 16px;
-    background-color: rgba(255, 149, 0, 0.1);
-    border: 1px solid rgba(255, 149, 0, 0.3);
-    border-radius: 12px;
+.stepContent {
+    flex: 1;
 }
 
-.warningBox span {
+.stepTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin: 0 0 12px 0;
+}
+
+.stepDescription {
     font-size: 14px;
-    color: #FF9500;
+    color: #8E8E93;
+    margin: 8px 0 0 0;
     line-height: 1.4;
 }
 
-.platformButtons {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-}
-
-.platformButton {
+.signinStatus {
     display: flex;
     align-items: center;
-    gap: 16px;
-    padding: 16px;
-    background-color: #F2F2F7;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.2s;
+    gap: 12px;
+    margin-bottom: 8px;
 }
 
-.platformButton:hover {
+.signinIcon {
+    width: 32px;
+    height: 32px;
     background-color: #E5E5EA;
-}
-
-.platformIcon {
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40px;
-    height: 40px;
-    background-color: #E5E5EA;
-    border-radius: 50%;
-}
-
-.platformInfo {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.platformName {
     font-size: 16px;
     font-weight: 600;
     color: #1C1C1E;
 }
 
-.platformStatus {
-    font-size: 14px;
-    color: #34C759;
-    font-weight: 500;
+.signinText {
+    flex: 1;
+    font-size: 16px;
+    color: #1C1C1E;
 }
 
-.platformArrow {
+.toggleSwitch {
+    width: 44px;
+    height: 24px;
+    background-color: #E5E5EA;
+    border-radius: 12px;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.toggleSwitch.active {
+    background-color: #34C759;
+}
+
+.toggleSwitch::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    top: 2px;
+    left: 2px;
+    transition: all 0.2s;
+}
+
+.toggleSwitch.active::after {
+    left: 22px;
+}
+
+.joinMeetingButton {
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.infoBox {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 16px;
-    background-color: rgba(0, 122, 255, 0.1);
-    border: 1px solid rgba(0, 122, 255, 0.3);
-    border-radius: 12px;
-}
-
-.infoBox span {
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #34C759;
+    border: none;
+    border-radius: 8px;
+    color: white;
     font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 12px;
+}
+
+.joinMeetingButton:hover {
+    background-color: #30B54F;
+}
+
+.backToCalendar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     color: #007AFF;
-    line-height: 1.4;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.backToCalendar:hover {
+    text-decoration: underline;
 }
 
 /* QR Scanner Page */
