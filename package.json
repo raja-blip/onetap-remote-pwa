@@ -4,8 +4,9 @@
   "main": "index.js",
   "scripts": {
     "start": "expo start --web",
-    "build": "expo export --platform web",
-    "serve": "npx serve dist"
+    "build": "echo 'Static site - no build needed'",
+    "serve": "npx serve dist",
+    "vercel-build": "echo 'Static site - no build needed'"
   },
   "dependencies": {
     "@expo/vector-icons": "^14.0.0",
