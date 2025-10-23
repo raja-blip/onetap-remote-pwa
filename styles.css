@@ -5,10 +5,11 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: #FFFFFF;
     color: #1C1C1E;
     line-height: 1.4;
+    overflow-x: hidden;
 }
 
 #app {
@@ -18,55 +19,268 @@ body {
     display: flex;
     flex-direction: column;
     background-color: #FFFFFF;
+    position: relative;
 }
 
+/* Header */
 .header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px;
+    justify-content: space-between;
+    padding-top: 20px;
+    padding-bottom: 16px;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-top: 20px;
     border-bottom: 1px solid #C7C7CC;
-    background-color: #FFFFFF;
-    position: sticky;
-    top: 0;
-    z-index: 100;
+    min-height: 80px;
 }
 
-.header-title {
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: #007AFF;
+}
+
+.headerInfo {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    justify-content: center;
+}
+
+.companyName {
     font-size: 18px;
     font-weight: 700;
     color: #1C1C1E;
+    margin-bottom: 2px;
 }
 
-.header-buttons {
-    display: flex;
-    gap: 16px;
-}
-
-.header-button {
+.settingsButton {
     background: none;
     border: none;
-    color: #007AFF;
-    font-size: 16px;
-    cursor: pointer;
     padding: 8px;
+    cursor: pointer;
     border-radius: 4px;
 }
 
-.header-button:hover {
-    background-color: rgba(0, 122, 255, 0.1);
+.settingsButton:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
-.content {
+/* Control Buttons Row */
+.controlButtonsRow {
+    display: flex;
+    gap: 12px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 12px;
+    margin-bottom: 20px;
+}
+
+.wakeButton {
     flex: 1;
-    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(255, 165, 2, 0.15);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 165, 2, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
 }
 
+.wakeButton:hover {
+    background-color: rgba(255, 165, 2, 0.25);
+}
+
+.wakeButtonText {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffa502;
+}
+
+.meetingControlsButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(52, 199, 89, 0.15);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(52, 199, 89, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.meetingControlsButton:hover {
+    background-color: rgba(52, 199, 89, 0.25);
+}
+
+.meetingControlsButtonText {
+    font-size: 14px;
+    font-weight: 600;
+    color: #34C759;
+}
+
+.homeButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background-color: rgba(0, 122, 255, 0.15);
+    padding: 10px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 122, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.homeButton:hover {
+    background-color: rgba(0, 122, 255, 0.25);
+}
+
+.homeButtonText {
+    font-size: 14px;
+    font-weight: 600;
+    color: #007AFF;
+}
+
+/* Main Content */
+.scrollContent {
+    flex-grow: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.buttonGrid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.gridButton {
+    border-radius: 16px;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: calc(45% - 8px);
+    min-height: 140px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+.gridButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.gridButton:active {
+    transform: translateY(0);
+}
+
+.blueButton {
+    background-color: #007AFF;
+}
+
+.greenButton {
+    background-color: #34C759;
+}
+
+.orangeButton {
+    background-color: #FF9500;
+}
+
+.purpleButton {
+    background-color: #AF52DE;
+}
+
+.buttonText {
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 20px;
+}
+
+/* Footer */
+.footer {
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footerText {
+    font-size: 14px;
+    color: #8E8E93;
+}
+
+/* Responsive Design */
+@media (max-width: 480px) {
+    #app {
+        max-width: 100%;
+    }
+    
+    .header {
+        padding: 16px;
+    }
+    
+    .scrollContent {
+        padding: 16px;
+    }
+    
+    .buttonGrid {
+        gap: 12px;
+    }
+    
+    .gridButton {
+        width: calc(50% - 6px);
+        min-height: 120px;
+        padding: 20px 12px;
+    }
+    
+    .buttonText {
+        font-size: 14px;
+    }
+}
+
+/* Page Transitions */
+.page {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #FFFFFF;
+    z-index: 10;
+}
+
+.page.active {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Status Section */
 .status-section {
     background-color: rgba(118, 118, 128, 0.3);
     padding: 20px;
     border-radius: 12px;
-    margin-bottom: 20px;
+    margin: 20px;
     text-align: center;
 }
 
@@ -101,11 +315,12 @@ body {
     background-color: #34C759;
 }
 
+/* Meeting Info */
 .meeting-info {
     background-color: #F2F2F7;
     padding: 16px;
     border-radius: 8px;
-    margin: 16px 0;
+    margin: 16px 20px;
 }
 
 .meeting-title {
@@ -120,43 +335,7 @@ body {
     color: #8E8E93;
 }
 
-.nav-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin: 20px 0;
-}
-
-.nav-button {
-    background-color: #F2F2F7;
-    color: #1C1C1E;
-    border: 1px solid #C7C7CC;
-    padding: 20px 16px;
-    border-radius: 12px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.nav-button:hover {
-    background-color: #E5E5EA;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-}
-
-.nav-icon {
-    font-size: 24px;
-}
-
-.nav-text {
-    font-size: 14px;
-    font-weight: 500;
-}
-
+/* Buttons */
 .button {
     background-color: #007AFF;
     color: white;
@@ -190,47 +369,7 @@ body {
     background-color: #E5E5EA;
 }
 
-.controls-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 20px 0;
-}
-
-.control-button {
-    background-color: #F2F2F7;
-    color: #1C1C1E;
-    border: 1px solid #C7C7CC;
-    padding: 16px;
-    border-radius: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    text-align: center;
-    transition: all 0.2s;
-}
-
-.control-button:hover {
-    background-color: #E5E5EA;
-}
-
-.control-button.active {
-    background-color: #007AFF;
-    color: white;
-}
-
-.settings-section {
-    margin-top: 30px;
-    padding-top: 20px;
-    border-top: 1px solid #C7C7CC;
-}
-
-.settings-title {
-    font-size: 16px;
-    font-weight: 600;
-    color: #1C1C1E;
-    margin-bottom: 16px;
-}
-
+/* Input Fields */
 .input-group {
     margin-bottom: 16px;
 }
@@ -258,32 +397,122 @@ body {
     border-color: #007AFF;
 }
 
-.page {
-    display: none;
+/* Controls Grid */
+.controls-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 20px;
 }
 
-.page.active {
-    display: block;
+.control-button {
+    background-color: #F2F2F7;
+    color: #1C1C1E;
+    border: 1px solid #C7C7CC;
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s;
 }
 
-.hidden {
-    display: none;
+.control-button:hover {
+    background-color: #E5E5EA;
 }
 
-@media (max-width: 480px) {
-    #app {
-        max-width: 100%;
-    }
-    
-    .header {
-        padding: 16px;
-    }
-    
-    .content {
-        padding: 16px;
-    }
-    
-    .nav-grid {
-        grid-template-columns: 1fr;
-    }
+.control-button.active {
+    background-color: #007AFF;
+    color: white;
+}
+
+/* Settings */
+.settings-section {
+    margin-top: 30px;
+    padding: 20px;
+    border-top: 1px solid #C7C7CC;
+}
+
+.settings-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 16px;
+}
+
+/* Loading States */
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+}
+
+.loading-text {
+    margin-left: 12px;
+    color: #8E8E93;
+}
+
+/* Alert Styles */
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    max-width: 300px;
+    text-align: center;
+}
+
+.alert-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin-bottom: 8px;
+}
+
+.alert-message {
+    font-size: 14px;
+    color: #8E8E93;
+    margin-bottom: 20px;
+}
+
+.alert-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.alert-button {
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.alert-button.primary {
+    background-color: #007AFF;
+    color: white;
+}
+
+.alert-button.secondary {
+    background-color: #F2F2F7;
+    color: #1C1C1E;
+}
+
+/* Overlay */
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
 }
