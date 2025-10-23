@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "OneTap Remote PWA",
+    "slug": "vc-mobile-remote-pwa",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/onetap-logo.png"
+    },
+    "scheme": "vcmobileremotepwa",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-camera",
+        {
+          "cameraPermissionText": "Allow $(PRODUCT_NAME) to access your camera to scan QR codes."
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "web": {
+            "bundler": "metro"
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "065dd26b-e514-4cff-8617-4d5d36e4fdd0"
+      }
+    }
+  }
+}

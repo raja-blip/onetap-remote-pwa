@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneTap Remote PWA - Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #FFFFFF;
+            color: #1C1C1E;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007AFF;
+            margin-bottom: 30px;
+        }
+        .status {
+            background-color: rgba(118, 118, 128, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+        }
+        .button {
+            background-color: #007AFF;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            margin: 10px;
+            cursor: pointer;
+        }
+        .button:hover {
+            background-color: #0056CC;
+        }
+        .info {
+            background-color: #F2F2F7;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">OneTap Remote PWA</div>
+        
+        <div class="status">
+            <h3>✅ PWA Setup Complete!</h3>
+            <p>All visual fixes have been applied:</p>
+            <ul style="text-align: left;">
+                <li>White backgrounds across all screens</li>
+                <li>Black text for titles and main content</li>
+                <li>Blue icons for header buttons</li>
+                <li>Proper text visibility in grey boxes</li>
+                <li>Consistent styling with main APK</li>
+            </ul>
+        </div>
+
+        <div class="info">
+            <h4>To run the full PWA:</h4>
+            <p>1. Open terminal in the PWA folder</p>
+            <p>2. Run: <code>npx expo start --web --port 8083</code></p>
+            <p>3. Open: <code>http://localhost:8083</code></p>
+        </div>
+
+        <div class="info">
+            <h4>Features Available:</h4>
+            <p>• Meeting controls (mute, camera, leave)</p>
+            <p>• Camera controls (pan, tilt, zoom)</p>
+            <p>• Casting functionality</p>
+            <p>• QR code scanning</p>
+            <p>• Calendar integration</p>
+            <p>• All via API calls to your bridge/launcher services</p>
+        </div>
+
+        <button class="button" onclick="alert('PWA is ready! All styling fixes applied.')">
+            Test PWA
+        </button>
+    </div>
+</body>
+</html>

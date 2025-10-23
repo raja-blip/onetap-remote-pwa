@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OneTap Remote PWA</title>
+    <meta name="description" content="OneTap Remote Control PWA">
+    <meta name="theme-color" content="#007AFF">
+    <link rel="manifest" href="data:application/json,{&quot;name&quot;:&quot;OneTap Remote PWA&quot;,&quot;short_name&quot;:&quot;OneTap&quot;,&quot;start_url&quot;:&quot;.&quot;,&quot;display&quot;:&quot;standalone&quot;,&quot;background_color&quot;:&quot;#FFFFFF&quot;,&quot;theme_color&quot;:&quot;#007AFF&quot;}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #FFFFFF;
+            color: #1C1C1E;
+            line-height: 1.4;
+        }
+        
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #C7C7CC;
+            background-color: #FFFFFF;
+        }
+        
+        .header-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1C1C1E;
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: 16px;
+        }
+        
+        .header-button {
+            background: none;
+            border: none;
+            color: #007AFF;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 8px;
+        }
+        
+        .content {
+            flex: 1;
+            padding: 20px;
+        }
+        
+        .status-section {
+            background-color: rgba(118, 118, 128, 0.3);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .status-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1C1C1E;
+            margin-bottom: 8px;
+        }
+        
+        .status-text {
+            font-size: 14px;
+            color: #8E8E93;
+        }
+        
+        .button {
+            background-color: #007AFF;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin: 8px 0;
+            transition: background-color 0.2s;
+        }
+        
+        .button:hover {
+            background-color: #0056CC;
+        }
+        
+        .button:disabled {
+            background-color: #8E8E93;
+            cursor: not-allowed;
+        }
+        
+        .secondary-button {
+            background-color: #F2F2F7;
+            color: #1C1C1E;
+            border: 1px solid #C7C7CC;
+        }
+        
+        .secondary-button:hover {
+            background-color: #E5E5EA;
+        }
+        
+        .meeting-info {
+            background-color: #F2F2F7;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        
+        .meeting-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1C1C1E;
+            margin-bottom: 4px;
+        }
+        
+        .meeting-subtitle {
+            font-size: 14px;
+            color: #8E8E93;
+        }
+        
+        .controls-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .control-button {
+            background-color: #F2F2F7;
+            color: #1C1C1E;
+            border: 1px solid #C7C7CC;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .control-button:hover {
+            background-color: #E5E5EA;
+        }
+        
+        .control-button.active {
+            background-color: #007AFF;
+            color: white;
+        }
+        
+        .settings-section {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #C7C7CC;
+        }
+        
+        .settings-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1C1C1E;
+            margin-bottom: 16px;
+        }
+        
+        .input-group {
+            margin-bottom: 16px;
+        }
+        
+        .input-label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1C1C1E;
+            margin-bottom: 8px;
+        }
+        
+        .input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #C7C7CC;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #FFFFFF;
+            color: #1C1C1E;
+        }
+        
+        .input:focus {
+            outline: none;
+            border-color: #007AFF;
+        }
+        
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 16px 0;
+        }
+        
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #FF3B30;
+        }
+        
+        .status-indicator.connected {
+            background-color: #34C759;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                max-width: 100%;
+            }
+            
+            .header {
+                padding: 16px;
+            }
+            
+            .content {
+                padding: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="header-buttons">
+                <button class="header-button" onclick="goHome()">🏠 Home</button>
+            </div>
+            <div class="header-title">OneTap Remote</div>
+            <div class="header-buttons">
+                <button class="header-button" onclick="goBack()">← Back</button>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Status Section -->
+            <div class="status-section">
+                <div class="status-title">Connection Status</div>
+                <div class="connection-status">
+                    <div class="status-indicator" id="bridgeStatus"></div>
+                    <span class="status-text" id="bridgeStatusText">Bridge: Disconnected</span>
+                </div>
+                <div class="connection-status">
+                    <div class="status-indicator" id="launcherStatus"></div>
+                    <span class="status-text" id="launcherStatusText">Launcher: Disconnected</span>
+                </div>
+            </div>
+
+            <!-- Meeting Info -->
+            <div class="meeting-info">
+                <div class="meeting-title">Meeting Room</div>
+                <div class="meeting-subtitle">Conference Room A</div>
+            </div>
+
+            <!-- Main Controls -->
+            <button class="button" onclick="startCasting()">Start Casting</button>
+            <button class="button secondary-button" onclick="joinMeeting()">Join Meeting</button>
+            <button class="button secondary-button" onclick="openCalendar()">Calendar</button>
+
+            <!-- Camera Controls -->
+            <div class="controls-grid">
+                <button class="control-button" onclick="cameraControl('up')">↑ Up</button>
+                <button class="control-button" onclick="cameraControl('down')">↓ Down</button>
+                <button class="control-button" onclick="cameraControl('left')">← Left</button>
+                <button class="control-button" onclick="cameraControl('right')">→ Right</button>
+                <button class="control-button" onclick="cameraControl('zoom_in')">🔍+ Zoom In</button>
+                <button class="control-button" onclick="cameraControl('zoom_out')">🔍- Zoom Out</button>
+            </div>
+
+            <!-- Meeting Controls -->
+            <div class="controls-grid">
+                <button class="control-button" onclick="meetingControl('mute')">🔇 Mute</button>
+                <button class="control-button" onclick="meetingControl('camera')">📹 Camera</button>
+                <button class="control-button" onclick="meetingControl('leave')">📞 Leave</button>
+                <button class="control-button" onclick="meetingControl('chat')">💬 Chat</button>
+            </div>
+
+            <!-- Settings Section -->
+            <div class="settings-section">
+                <div class="settings-title">Settings</div>
+                
+                <div class="input-group">
+                    <label class="input-label">Bridge IP</label>
+                    <input type="text" class="input" id="bridgeIP" placeholder="192.168.68.102" value="192.168.68.102">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Bridge Port</label>
+                    <input type="text" class="input" id="bridgePort" placeholder="9090" value="9090">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Launcher IP</label>
+                    <input type="text" class="input" id="launcherIP" placeholder="192.168.68.102" value="192.168.68.102">
+                </div>
+                
+                <div class="input-group">
+                    <label class="input-label">Launcher Port</label>
+                    <input type="text" class="input" id="launcherPort" placeholder="8001" value="8001">
+                </div>
+                
+                <button class="button" onclick="testConnections()">Test Connections</button>
+                <button class="button secondary-button" onclick="saveSettings()">Save Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        let bridgeIP = '192.168.68.102';
+        let bridgePort = '9090';
+        let launcherIP = '192.168.68.102';
+        let launcherPort = '8001';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadSettings();
+            testConnections();
+        });
+
+        // Load settings from localStorage
+        function loadSettings() {
+            bridgeIP = localStorage.getItem('bridgeIP') || '192.168.68.102';
+            bridgePort = localStorage.getItem('bridgePort') || '9090';
+            launcherIP = localStorage.getItem('launcherIP') || '192.168.68.102';
+            launcherPort = localStorage.getItem('launcherPort') || '8001';
+            
+            document.getElementById('bridgeIP').value = bridgeIP;
+            document.getElementById('bridgePort').value = bridgePort;
+            document.getElementById('launcherIP').value = launcherIP;
+            document.getElementById('launcherPort').value = launcherPort;
+        }
+
+        // Save settings to localStorage
+        function saveSettings() {
+            bridgeIP = document.getElementById('bridgeIP').value;
+            bridgePort = document.getElementById('bridgePort').value;
+            launcherIP = document.getElementById('launcherIP').value;
+            launcherPort = document.getElementById('launcherPort').value;
+            
+            localStorage.setItem('bridgeIP', bridgeIP);
+            localStorage.setItem('bridgePort', bridgePort);
+            localStorage.setItem('launcherIP', launcherIP);
+            localStorage.setItem('launcherPort', launcherPort);
+            
+            alert('Settings saved!');
+        }
+
+        // Test connections
+        async function testConnections() {
+            const bridgeStatus = document.getElementById('bridgeStatus');
+            const bridgeStatusText = document.getElementById('bridgeStatusText');
+            const launcherStatus = document.getElementById('launcherStatus');
+            const launcherStatusText = document.getElementById('launcherStatusText');
+
+            // Test Bridge
+            try {
+                const bridgeResponse = await fetch(`http://${bridgeIP}:${bridgePort}/api/control`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: 'ping' })
+                });
+                
+                if (bridgeResponse.ok) {
+                    bridgeStatus.className = 'status-indicator connected';
+                    bridgeStatusText.textContent = 'Bridge: Connected';
+                } else {
+                    throw new Error('Bridge not responding');
+                }
+            } catch (error) {
+                bridgeStatus.className = 'status-indicator';
+                bridgeStatusText.textContent = 'Bridge: Disconnected';
+            }
+
+            // Test Launcher
+            try {
+                const launcherResponse = await fetch(`http://${launcherIP}:${launcherPort}/discover`, {
+                    method: 'GET'
+                });
+                
+                if (launcherResponse.ok) {
+                    launcherStatus.className = 'status-indicator connected';
+                    launcherStatusText.textContent = 'Launcher: Connected';
+                } else {
+                    throw new Error('Launcher not responding');
+                }
+            } catch (error) {
+                launcherStatus.className = 'status-indicator';
+                launcherStatusText.textContent = 'Launcher: Disconnected';
+            }
+        }
+
+        // Bridge API calls
+        async function callBridgeAPI(endpoint, data) {
+            try {
+                const response = await fetch(`http://${bridgeIP}:${bridgePort}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Bridge API error:', error);
+                alert('Failed to reach bridge service');
+            }
+        }
+
+        // Launcher API calls
+        async function callLauncherAPI(endpoint, data) {
+            try {
+                const response = await fetch(`http://${launcherIP}:${launcherPort}${endpoint}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                return await response.json();
+            } catch (error) {
+                console.error('Launcher API error:', error);
+                alert('Failed to reach launcher service');
+            }
+        }
+
+        // Navigation functions
+        function goHome() {
+            callBridgeAPI('/api/control', { action: 'go_home' });
+        }
+
+        function goBack() {
+            callBridgeAPI('/api/control', { action: 'go_back' });
+        }
+
+        // Main functions
+        async function startCasting() {
+            try {
+                // Step 1: Send home command to clear screensaver
+                await callBridgeAPI('/api/control', { action: 'go_home' });
+                
+                // Wait 2 seconds
+                await new Promise(resolve => setTimeout(resolve, 2000));
+                
+                // Step 2: Try to click "Cast Screen" using launcher
+                await callLauncherAPI('/commands/send', {
+                    type: 'click_by_content_description',
+                    payload: { contentDescription: 'Cast Screen' }
+                });
+                
+                alert('Casting started!');
+            } catch (error) {
+                alert('Failed to start casting: ' + error.message);
+            }
+        }
+
+        function joinMeeting() {
+            const url = prompt('Enter meeting URL:');
+            if (url) {
+                // Open meeting URL
+                window.open(url, '_blank');
+            }
+        }
+
+        function openCalendar() {
+            alert('Calendar view would open here');
+        }
+
+        // Camera controls
+        async function cameraControl(direction) {
+            // Flip directions due to OEM SDK behavior
+            let actualDirection = direction;
+            if (direction === 'left') actualDirection = 'right';
+            else if (direction === 'right') actualDirection = 'left';
+            else if (direction === 'up') actualDirection = 'down';
+            else if (direction === 'down') actualDirection = 'up';
+            
+            await callBridgeAPI('/api/control', { action: `camera_${actualDirection}` });
+            
+            if (direction !== 'zoom_in' && direction !== 'zoom_out') {
+                setTimeout(() => {
+                    callBridgeAPI('/api/control', { action: 'camera_stop' });
+                }, 300);
+            }
+        }
+
+        // Meeting controls
+        async function meetingControl(action) {
+            if (action === 'mute') {
+                await callBridgeAPI('/api/control', { action: 'mute' });
+            } else if (action === 'camera') {
+                await callBridgeAPI('/api/control', { action: 'camera_toggle' });
+            } else if (action === 'leave') {
+                await callBridgeAPI('/api/control', { action: 'leave_meeting' });
+                // Double back for Google Meet
+                setTimeout(() => {
+                    callBridgeAPI('/api/control', { action: 'go_back' });
+                }, 2000);
+                setTimeout(() => {
+                    callBridgeAPI('/api/control', { action: 'go_back' });
+                }, 3000);
+            } else if (action === 'chat') {
+                await callBridgeAPI('/api/control', { action: 'open_chat' });
+            }
+        }
+    </script>
+</body>
+</html>
