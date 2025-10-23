@@ -947,6 +947,123 @@ body {
     line-height: 1.4;
 }
 
+/* QR Scanner Page */
+.scannerContainer {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000;
+}
+
+.qrReader {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.scannerOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    pointer-events: none;
+}
+
+.qrFrame {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+}
+
+.corner {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 3px solid #007AFF;
+}
+
+.corner.topLeft {
+    top: -3px;
+    left: -3px;
+    border-right: none;
+    border-bottom: none;
+}
+
+.corner.topRight {
+    top: -3px;
+    right: -3px;
+    border-left: none;
+    border-bottom: none;
+}
+
+.corner.bottomLeft {
+    bottom: -3px;
+    left: -3px;
+    border-right: none;
+    border-top: none;
+}
+
+.corner.bottomRight {
+    bottom: -3px;
+    right: -3px;
+    border-left: none;
+    border-top: none;
+}
+
+.scannerInstructions {
+    margin-top: 20px;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.manualInput {
+    padding: 20px;
+    background-color: #F2F2F7;
+    border-radius: 16px;
+    margin: 20px;
+}
+
+.manualInput h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #1C1C1E;
+    margin: 0 0 16px 0;
+}
+
+.connectButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: #34C759;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+    margin-top: 16px;
+}
+
+.connectButton:hover {
+    background-color: #30B54F;
+}
+
 /* Responsive Design */
 @media (max-width: 480px) {
     #app {

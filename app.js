@@ -601,79 +601,217 @@ function closeAlert() {
 // Page-specific functions
 
 // Join Meeting Page
-function joinMeeting() {
+async function joinMeeting() {
     const meetingUrl = document.getElementById('meetingUrl').value;
     if (!meetingUrl) {
         alert('Please enter a meeting URL');
         return;
     }
     
-    console.log('Joining meeting:', meetingUrl);
-    // Here you would call the actual API to join the meeting
-    alert('Meeting join functionality would be implemented here');
+    try {
+        console.log('Joining meeting:', meetingUrl);
+        
+        // Call launcher API to join meeting
+        const result = await callLauncherAPI('/commands/send', {
+            type: 'launch_meeting',
+            payload: {
+                url: meetingUrl
+            }
+        });
+        
+        if (result.status === 'success') {
+            alert('Meeting launched successfully!');
+            // Navigate to meeting controls
+            navigate('meeting-controls.html');
+        } else {
+            alert('Failed to join meeting: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error joining meeting:', error);
+        alert('Failed to join meeting. Please check your connection.');
+    }
 }
 
 // Calendar Page
-function loadMeetings() {
+async function loadMeetings() {
     const meetingsList = document.getElementById('meetingsList');
     if (!meetingsList) return;
     
-    // Mock data - in real app, this would come from API
-    const meetings = [
-        { title: 'Teams Test Event', time: '4:00 PM - 4:30 PM', platform: 'TEAMS', status: 'UPCOMING' },
-        { title: 'Zoom Test Event', time: '4:30 PM - 5:00 PM', platform: 'ZOOM', status: 'UPCOMING' },
-        { title: 'WebEx Test Event', time: '5:00 PM - 5:30 PM', platform: 'WEBEX', status: 'UPCOMING' },
-        { title: 'Test Google Meet', time: '5:30 PM - 6:00 PM', platform: 'GOOGLE', status: 'UPCOMING' }
-    ];
-    
-    meetingsList.innerHTML = meetings.map(meeting => `
-        <div class="meetingCard">
-            <div class="meetingTitle">${meeting.title}</div>
-            <div class="meetingTime">${meeting.time}</div>
-            <div class="meetingFooter">
-                <span class="meetingPlatform">${meeting.platform}</span>
-                <span class="meetingStatus">${meeting.status}</span>
-            </div>
-        </div>
-    `).join('');
+    try {
+        // Call launcher API to get meetings
+        const result = await callLauncherAPI('/ui/state', {});
+        
+        if (result.status === 'success' && result.meetings) {
+            const meetings = result.meetings;
+            
+            meetingsList.innerHTML = meetings.map(meeting => `
+                <div class="meetingCard" onclick="joinMeetingFromCalendar('${meeting.link}', '${meeting.platform}')">
+                    <div class="meetingTitle">${meeting.title}</div>
+                    <div class="meetingTime">${formatTime(meeting.startTime)} - ${formatTime(meeting.endTime)}</div>
+                    <div class="meetingFooter">
+                        <span class="meetingPlatform">${meeting.platform.toUpperCase()}</span>
+                        <span class="meetingStatus">${meeting.status.toUpperCase()}</span>
+                    </div>
+                </div>
+            `).join('');
+        } else {
+            // Fallback to mock data if API fails
+            const meetings = [
+                { title: 'Teams Test Event', time: '4:00 PM - 4:30 PM', platform: 'TEAMS', status: 'UPCOMING' },
+                { title: 'Zoom Test Event', time: '4:30 PM - 5:00 PM', platform: 'ZOOM', status: 'UPCOMING' },
+                { title: 'WebEx Test Event', time: '5:00 PM - 5:30 PM', platform: 'WEBEX', status: 'UPCOMING' },
+                { title: 'Test Google Meet', time: '5:30 PM - 6:00 PM', platform: 'GOOGLE', status: 'UPCOMING' }
+            ];
+            
+            meetingsList.innerHTML = meetings.map(meeting => `
+                <div class="meetingCard">
+                    <div class="meetingTitle">${meeting.title}</div>
+                    <div class="meetingTime">${meeting.time}</div>
+                    <div class="meetingFooter">
+                        <span class="meetingPlatform">${meeting.platform}</span>
+                        <span class="meetingStatus">${meeting.status}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+    } catch (error) {
+        console.error('Error loading meetings:', error);
+        meetingsList.innerHTML = '<div class="meetingCard"><div class="meetingTitle">Failed to load meetings</div></div>';
+    }
+}
+
+function formatTime(timestamp) {
+    const date = new Date(timestamp);
+    return date.toLocaleTimeString('en-US', { 
+        hour: 'numeric', 
+        minute: '2-digit',
+        hour12: true 
+    });
+}
+
+async function joinMeetingFromCalendar(link, platform) {
+    try {
+        console.log('Joining meeting from calendar:', link, platform);
+        
+        // Call launcher API to join meeting
+        const result = await callLauncherAPI('/commands/send', {
+            type: 'launch_meeting',
+            payload: {
+                url: link,
+                platform: platform
+            }
+        });
+        
+        if (result.status === 'success') {
+            alert('Meeting launched successfully!');
+            // Navigate to meeting controls
+            navigate('meeting-controls.html');
+        } else {
+            alert('Failed to join meeting: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error joining meeting:', error);
+        alert('Failed to join meeting. Please check your connection.');
+    }
 }
 
 // Casting Page
-function startCasting() {
-    console.log('Starting casting...');
-    // Here you would call the actual API to start casting
-    alert('Casting functionality would be implemented here');
+async function startCasting() {
+    try {
+        console.log('Starting casting...');
+        
+        // Step 1: Send home command to clear screensaver
+        await callBridgeAPI('/api/control', {
+            action: 'go_home'
+        });
+        
+        // Wait 2 seconds for screensaver to clear
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        
+        // Step 2: Try to click "Cast Screen" using launcher
+        const result = await callLauncherAPI('/commands/send', {
+            type: 'click_by_content_description',
+            payload: {
+                contentDescription: 'Cast Screen'
+            }
+        });
+        
+        if (result.status === 'success') {
+            document.getElementById('statusText').textContent = 'Ready to Cast';
+            alert('Casting started! Visit cast.tifoh.com on your laptop to connect.');
+        } else {
+            throw new Error('Failed to click Cast Screen button');
+        }
+    } catch (error) {
+        console.error('Error starting casting:', error);
+        alert('Failed to start casting. Please check your connection.');
+    }
 }
 
 // Meeting Controls Page
-function toggleMute() {
-    console.log('Toggling mute...');
-    // API call to toggle mute
+async function toggleMute() {
+    try {
+        console.log('Toggling mute...');
+        await callBridgeAPI('/api/control', { action: 'mute' });
+    } catch (error) {
+        console.error('Error toggling mute:', error);
+    }
 }
 
-function volumeUp() {
-    console.log('Volume up...');
-    // API call to increase volume
+async function volumeUp() {
+    try {
+        console.log('Volume up...');
+        await callBridgeAPI('/api/control', { action: 'volume_up' });
+    } catch (error) {
+        console.error('Error increasing volume:', error);
+    }
 }
 
-function volumeDown() {
-    console.log('Volume down...');
-    // API call to decrease volume
+async function volumeDown() {
+    try {
+        console.log('Volume down...');
+        await callBridgeAPI('/api/control', { action: 'volume_down' });
+    } catch (error) {
+        console.error('Error decreasing volume:', error);
+    }
 }
 
-function toggleCamera() {
-    console.log('Toggling camera...');
-    // API call to toggle camera
+async function toggleCamera() {
+    try {
+        console.log('Toggling camera...');
+        await callBridgeAPI('/api/control', { action: 'camera_toggle' });
+    } catch (error) {
+        console.error('Error toggling camera:', error);
+    }
 }
 
-function endCall() {
-    console.log('Ending call...');
-    // API call to end call
+async function endCall() {
+    try {
+        console.log('Ending call...');
+        await callBridgeAPI('/api/control', { action: 'end_call' });
+        
+        // For Google Meet, send double back commands
+        const platform = document.getElementById('platformText').textContent;
+        if (platform.includes('Teams') || platform.includes('Google')) {
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            await callBridgeAPI('/api/control', { action: 'go_back' });
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            await callBridgeAPI('/api/control', { action: 'go_back' });
+        }
+        
+        alert('Call ended');
+    } catch (error) {
+        console.error('Error ending call:', error);
+    }
 }
 
-function toggleFocus() {
-    console.log('Toggling focus...');
-    // API call to toggle focus
+async function toggleFocus() {
+    try {
+        console.log('Toggling focus...');
+        await callBridgeAPI('/api/control', { action: 'focus_mode' });
+    } catch (error) {
+        console.error('Error toggling focus:', error);
+    }
 }
 
 function togglePlatform() {
@@ -682,39 +820,85 @@ function togglePlatform() {
 }
 
 // Camera controls
-function cameraZoomOut() {
-    console.log('Camera zoom out...');
-    // API call for camera zoom out
+async function cameraZoomOut() {
+    try {
+        console.log('Camera zoom out...');
+        await callBridgeAPI('/api/control', { action: 'zoom_out' });
+        setTimeout(async () => {
+            await callBridgeAPI('/api/control', { action: 'zoom_stop' });
+        }, 300);
+    } catch (error) {
+        console.error('Error zooming out:', error);
+    }
 }
 
-function cameraZoomIn() {
-    console.log('Camera zoom in...');
-    // API call for camera zoom in
+async function cameraZoomIn() {
+    try {
+        console.log('Camera zoom in...');
+        await callBridgeAPI('/api/control', { action: 'zoom_in' });
+        setTimeout(async () => {
+            await callBridgeAPI('/api/control', { action: 'zoom_stop' });
+        }, 300);
+    } catch (error) {
+        console.error('Error zooming in:', error);
+    }
 }
 
-function cameraTiltUp() {
-    console.log('Camera tilt up...');
-    // API call for camera tilt up
+async function cameraTiltUp() {
+    try {
+        console.log('Camera tilt up...');
+        await callBridgeAPI('/api/control', { action: 'camera_down' }); // Flipped due to OEM SDK
+        setTimeout(async () => {
+            await callBridgeAPI('/api/control', { action: 'camera_stop' });
+        }, 300);
+    } catch (error) {
+        console.error('Error tilting up:', error);
+    }
 }
 
-function cameraTiltDown() {
-    console.log('Camera tilt down...');
-    // API call for camera tilt down
+async function cameraTiltDown() {
+    try {
+        console.log('Camera tilt down...');
+        await callBridgeAPI('/api/control', { action: 'camera_up' }); // Flipped due to OEM SDK
+        setTimeout(async () => {
+            await callBridgeAPI('/api/control', { action: 'camera_stop' });
+        }, 300);
+    } catch (error) {
+        console.error('Error tilting down:', error);
+    }
 }
 
-function cameraPanLeft() {
-    console.log('Camera pan left...');
-    // API call for camera pan left
+async function cameraPanLeft() {
+    try {
+        console.log('Camera pan left...');
+        await callBridgeAPI('/api/control', { action: 'camera_right' }); // Flipped due to OEM SDK
+        setTimeout(async () => {
+            await callBridgeAPI('/api/control', { action: 'camera_stop' });
+        }, 300);
+    } catch (error) {
+        console.error('Error panning left:', error);
+    }
 }
 
-function cameraPanRight() {
-    console.log('Camera pan right...');
-    // API call for camera pan right
+async function cameraPanRight() {
+    try {
+        console.log('Camera pan right...');
+        await callBridgeAPI('/api/control', { action: 'camera_left' }); // Flipped due to OEM SDK
+        setTimeout(async () => {
+            await callBridgeAPI('/api/control', { action: 'camera_stop' });
+        }, 300);
+    } catch (error) {
+        console.error('Error panning right:', error);
+    }
 }
 
-function cameraHome() {
-    console.log('Camera home...');
-    // API call for camera home
+async function cameraHome() {
+    try {
+        console.log('Camera home...');
+        await callBridgeAPI('/api/control', { action: 'go_home' });
+    } catch (error) {
+        console.error('Error going home:', error);
+    }
 }
 
 // Settings Page
@@ -758,10 +942,25 @@ function saveLauncherSettings() {
     alert('Launcher settings saved!');
 }
 
-function testLauncherConnection() {
-    console.log('Testing launcher connection...');
-    // API call to test connection
-    alert('Connection test would be implemented here');
+async function testLauncherConnection() {
+    try {
+        console.log('Testing launcher connection...');
+        
+        const result = await callLauncherAPI('/ui/state', {});
+        
+        if (result.status === 'success') {
+            document.getElementById('statusIndicator').textContent = 'Connected';
+            document.getElementById('statusIndicator').className = 'statusIndicator connected';
+            alert('Launcher connection successful!');
+        } else {
+            throw new Error('Connection failed');
+        }
+    } catch (error) {
+        console.error('Error testing launcher connection:', error);
+        document.getElementById('statusIndicator').textContent = 'Disconnected';
+        document.getElementById('statusIndicator').className = 'statusIndicator';
+        alert('Launcher connection failed. Please check your settings.');
+    }
 }
 
 function scanQR() {
@@ -771,16 +970,50 @@ function scanQR() {
 }
 
 // Instant Meeting Page
-function startGoogleMeet() {
-    console.log('Starting Google Meet...');
-    // API call to start Google Meet
-    alert('Google Meet functionality would be implemented here');
+async function startGoogleMeet() {
+    try {
+        console.log('Starting Google Meet...');
+        
+        const result = await callLauncherAPI('/commands/send', {
+            type: 'launch_instant_meeting',
+            payload: {
+                platform: 'google'
+            }
+        });
+        
+        if (result.status === 'success') {
+            alert('Google Meet started successfully!');
+            navigate('meeting-controls.html');
+        } else {
+            alert('Failed to start Google Meet: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error starting Google Meet:', error);
+        alert('Failed to start Google Meet. Please check your connection.');
+    }
 }
 
-function startTeamsMeeting() {
-    console.log('Starting Teams meeting...');
-    // API call to start Teams meeting
-    alert('Teams meeting functionality would be implemented here');
+async function startTeamsMeeting() {
+    try {
+        console.log('Starting Teams meeting...');
+        
+        const result = await callLauncherAPI('/commands/send', {
+            type: 'launch_instant_meeting',
+            payload: {
+                platform: 'teams'
+            }
+        });
+        
+        if (result.status === 'success') {
+            alert('Teams meeting started successfully!');
+            navigate('meeting-controls.html');
+        } else {
+            alert('Failed to start Teams meeting: ' + result.message);
+        }
+    } catch (error) {
+        console.error('Error starting Teams meeting:', error);
+        alert('Failed to start Teams meeting. Please check your connection.');
+    }
 }
 
 // Load page-specific content
