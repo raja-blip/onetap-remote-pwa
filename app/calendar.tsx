@@ -1,20 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  SafeAreaView,
-  StatusBar,
-  TouchableOpacity,
-  ScrollView,
-  Alert,
-  ActivityIndicator,
-  RefreshControl,
-} from 'react-native';
 import { router } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import Logo from '../components/Logo';
 import LauncherService, { Meeting } from '../services/LauncherService';
 
 export default function CalendarScreen() {
@@ -179,35 +166,31 @@ export default function CalendarScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
-      
-      <View style={styles.header}>
-        <Logo width={100} height={40} />
+    <div className="container">
+      <div className="header">
+        <div className="logo">OneTap</div>
         
-        <View style={styles.meetingInfo}>
-          <Text style={styles.meetingTitle}>{roomName}</Text>
-        </View>
+        <div className="meetingInfo">
+          <div className="meetingTitle">{roomName}</div>
+        </div>
 
-        <View style={styles.headerButtons}>
-          <TouchableOpacity
-            style={styles.headerButton}
-            onPress={() => router.push('/')}
-            activeOpacity={0.7}
+        <div className="headerButtons">
+          <button
+            className="headerButton"
+            onClick={() => router.push('/')}
           >
             <Ionicons name="home" size={18} color="#007AFF" />
-            <Text style={styles.headerButtonText}>Home</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.headerButton}
-            onPress={() => router.back()}
-            activeOpacity={0.7}
+            <span className="headerButtonText">Home</span>
+          </button>
+          <button
+            className="headerButton"
+            onClick={() => router.back()}
           >
             <Ionicons name="arrow-back" size={18} color="#007AFF" />
-            <Text style={styles.headerButtonText}>Return</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+            <span className="headerButtonText">Return</span>
+          </button>
+        </div>
+      </div>
 
       <View style={styles.content}>
         <View style={styles.sectionHeader}>
